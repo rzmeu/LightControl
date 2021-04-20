@@ -1,0 +1,20 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LightControl"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="LightControl.MainWindow"
+        mc:Ignorable="d"
+        AllowsTransparency="True"
+        Title="MainWindow" Height="200" Width="300" Deactivated="WindowLostFocus"
+        Icon="resources/ico.ico">
+    <Grid>
+        <Slider Name="Slider" HorizontalAlignment="Center" Margin="0,160,0,0" VerticalAlignment="Top" Width="280" ValueChanged="Slider_ValueChanged" />
+        <mah:ToggleSwitch Name="ToggleSwitch" Header="Light" Height="52" Margin="10,0,0,0" VerticalAlignment="Top" Width="87" Toggled="ToggleSwitch_OnToggled"/>
+        <Button Content="Minimum" Click="MinimumButton_OnClick" HorizontalAlignment="Left" Width="90" Height="80" Margin="10,52,0,52" Style="{DynamicResource MahApps.Styles.Button.Flat}"/>
+        <Button Content="Gaming" Click="GamingButton_OnClick" HorizontalAlignment="Center" Margin="0,52,0,52" Width="90" Height="80" Style="{DynamicResource MahApps.Styles.Button.Flat}"/>
+        <Button Content="Max" Click="MaxButton_OnClick" HorizontalAlignment="Left" Margin="200,52,0,52" Width="90" Height="80" Style="{DynamicResource MahApps.Styles.Button.Flat}"/>
+        <Label Content="Brightness" HorizontalAlignment="Left" Margin="5,137,0,0" VerticalAlignment="Top" Width="72" Height="23"/>
+    </Grid>
+</Window>
