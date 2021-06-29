@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+	<ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
@@ -19,6 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.4" />
+    <PackageReference Include="System.IO.Ports" Version="5.0.1" />
     <PackageReference Include="YeelightAPI" Version="1.10.2" />
   </ItemGroup>
 

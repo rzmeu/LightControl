@@ -1,27 +1,18 @@
 ﻿using ControlzEx.Theming;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using YeelightAPI;
 using YeelightAPI.Models;
 using Application = System.Windows.Application;
+using System.IO.Ports;
+using System.ComponentModel;
 
 namespace LightControl
 {
@@ -43,12 +34,13 @@ namespace LightControl
             InitializeComponent();
             ThemeManager.Current.ChangeTheme(this, "Dark.Blue");
 
-            var secondaryScreen = Screen.AllScreens.FirstOrDefault(s => !s.Primary);
-            if (secondaryScreen != null)
+            var primaryScreen = Screen.AllScreens.FirstOrDefault(s => s.Primary);
+            if (primaryScreen != null)
             {
-                var workingArea = secondaryScreen.WorkingArea;
-                Left = workingArea.Left + workingArea.Width - 300;
-                Top = workingArea.Top + workingArea.Height - 200;
+                var workingArea = primaryScreen.WorkingArea;
+
+                Left = workingArea.Width - 300 - 10;
+                Top = workingArea.Height - 200 - 10;
                 Width = 300;
                 Height = 200;
             }
@@ -73,7 +65,9 @@ namespace LightControl
             RegisterInStartup(true);
             GetDevicesAsync();
         }
-        
+
+        private BackgroundWorker backgroundWorker1 = new BackgroundWorker();
+
         private void RegisterInStartup(bool isChecked)
         {
             RegistryKey registryKey = Registry.CurrentUser.OpenSubKey
@@ -210,7 +204,7 @@ namespace LightControl
 
         private void GamingButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Slider.Value = 40;
+            Slider.Value = 50;
         }
 
         private void MinimumButton_OnClick(object sender, RoutedEventArgs e)
@@ -222,5 +216,6 @@ namespace LightControl
         {
             Slider.Value = 100;
         }
+
     }
 }
