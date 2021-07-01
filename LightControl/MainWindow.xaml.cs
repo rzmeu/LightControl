@@ -13,6 +13,8 @@ using YeelightAPI.Models;
 using Application = System.Windows.Application;
 using System.IO.Ports;
 using System.ComponentModel;
+using System.Windows.Media.Animation;
+using System.Diagnostics;
 
 namespace LightControl
 {
@@ -28,6 +30,7 @@ namespace LightControl
         private int? brightness;
         private int? currentBrightness;
         private Timer _timer;
+        private Boolean hidden = true;
 
         public MainWindow()
         {
@@ -39,13 +42,12 @@ namespace LightControl
             {
                 var workingArea = primaryScreen.WorkingArea;
 
-                Left = workingArea.Width - 300 - 10;
-                Top = workingArea.Height - 200 - 10;
-                Width = 300;
-                Height = 200;
+                Left = workingArea.Width - 300 - 8;
+                Top = workingArea.Height - 200 - 16;
+                Width = 308;
+                Height = 204;
             }
 
-            WindowStyle = WindowStyle.None;
             Topmost = true;
             ShowInTaskbar = false;
             Hide();
@@ -64,6 +66,46 @@ namespace LightControl
 
             RegisterInStartup(true);
             GetDevicesAsync();
+
+        }
+
+        private void Device_OnNotificationReceived(object sender, NotificationReceivedEventArgs e)
+        {
+            Trace.WriteLine(e.Result.Params);
+        }
+
+        private void ShowAnimation()
+        {
+            if (!hidden)
+                return;
+            Storyboard sb = new Storyboard();
+            Show();
+            Activate();
+            ThicknessAnimation ta = new ThicknessAnimation(new Thickness(308, 0, 0, 0), new Thickness(0, 0, 0, 0), new Duration(new TimeSpan(0, 0, 0, 0, 200)));
+            sb.Children.Add(ta);
+            Storyboard.SetTarget(ta, slidingCanvas);
+            Storyboard.SetTargetProperty(ta, new PropertyPath(Canvas.MarginProperty));
+            sb.Begin();
+            hidden = false;
+        }
+
+        private void HideAnimation()
+        {
+            if (hidden)
+                return;
+            Storyboard sb = new Storyboard();
+            sb.Completed += Hide_Completed;
+            ThicknessAnimation ta = new ThicknessAnimation(new Thickness(0, 0, 0, 0), new Thickness(308, 0, 0, 0), new Duration(new TimeSpan(0, 0, 0, 0, 200)));
+            sb.Children.Add(ta);
+            Storyboard.SetTarget(ta, slidingCanvas);
+            Storyboard.SetTargetProperty(ta, new PropertyPath(Canvas.MarginProperty));
+            sb.Begin();
+            hidden = true;
+        }
+
+        private void Hide_Completed(object sender, EventArgs e)
+        {
+            Hide();
         }
 
         private BackgroundWorker backgroundWorker1 = new BackgroundWorker();
@@ -86,6 +128,9 @@ namespace LightControl
         private void OnDeviceFound(Device device)
         {
             this.device = device;
+
+
+            device.OnNotificationReceived += Device_OnNotificationReceived;
 
             object brightness;
             
@@ -119,17 +164,20 @@ namespace LightControl
             {
                 if(isOpen)
                     return;
-                
-                Show();
-                Activate();
+
+                //Show();
+                isOpen = true;
+                ShowAnimation();
             }
         }
+
 
 
         private void WindowLostFocus(object sender, EventArgs e)
         {
             isOpen = false;
-            Hide();
+            HideAnimation();
+            //Hide();
         }
         
         private void OnTimedEvent(object source, EventArgs e)

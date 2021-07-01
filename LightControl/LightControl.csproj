@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.4" />
+    <PackageReference Include="Microsoft.UI.Xaml" Version="2.6.0" />
     <PackageReference Include="System.IO.Ports" Version="5.0.1" />
     <PackageReference Include="YeelightAPI" Version="1.10.2" />
   </ItemGroup>
@@ -53,6 +54,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
 </Project>

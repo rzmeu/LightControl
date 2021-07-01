@@ -7,14 +7,26 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="LightControl.MainWindow"
         mc:Ignorable="d"
         AllowsTransparency="True"
-        Title="MainWindow" Height="200" Width="300" Deactivated="WindowLostFocus"
-        Icon="resources/ico.ico">
-    <Grid>
-        <Slider Name="Slider" HorizontalAlignment="Center" Margin="0,160,0,0" VerticalAlignment="Top" Width="280" ValueChanged="Slider_ValueChanged" />
-        <mah:ToggleSwitch Name="ToggleSwitch" Header="Light" Height="52" Margin="10,0,0,0" VerticalAlignment="Top" Width="90" Toggled="ToggleSwitch_OnToggled"/>
-        <Button Content="Min" Click="MinimumButton_OnClick" HorizontalAlignment="Left" Width="90" Height="80" Margin="10,52,0,52"/>
-        <Button Content="Medium" Click="GamingButton_OnClick" HorizontalAlignment="Center" Margin="0,52,0,52" Width="90" Height="80"/>
-        <Button Content="Max" Click="MaxButton_OnClick" HorizontalAlignment="Left" Margin="200,52,0,52" Width="90" Height="80"/>
-        <Label Content="Brightness" HorizontalAlignment="Left" Margin="5,137,0,0" VerticalAlignment="Top" Width="72" Height="23"/>
-    </Grid>
+        WindowStyle="None"
+        Title="MainWindow" Height="204" Width="308" Deactivated="WindowLostFocus"
+        Icon="resources/ico.ico" Background="{x:Null}"
+        Name="w1">
+    <Canvas Height="204" Width="308">
+        <Canvas Margin="308,0,0,0" Height="204" Width="300" Name="slidingCanvas">
+            <Border CornerRadius="8" Background="#FF22252A">
+                <Grid>
+                    <Label Content="Brightness" Margin="6,140,230,34" />
+                    <Slider Name="Slider" Margin="10,158,10,7" Width="280" ValueChanged="Slider_ValueChanged" />
+                    <Label Content="Light" Margin="6,0,245,174" FontSize="14"/>
+                    <mah:ToggleSwitch Name="ToggleSwitch" Header="" Height="52" Margin="10,0,0,0" VerticalAlignment="Top" Width="90" Toggled="ToggleSwitch_OnToggled">
+                    </mah:ToggleSwitch>
+                    <Button Content="Min" Click="MinimumButton_OnClick" HorizontalAlignment="Left" Width="90" Height="80" Margin="10,52,0,52"/>
+                    <Button Content="Medium" Click="GamingButton_OnClick" HorizontalAlignment="Center" Margin="0,52,0,52" Width="90" Height="80"/>
+                    <Button Content="Max" Click="MaxButton_OnClick" HorizontalAlignment="Left" Margin="200,52,0,52" Width="90" Height="80"/>
+                </Grid>
+            </Border>
+        </Canvas>
+    </Canvas>
+
+
 </Window>
